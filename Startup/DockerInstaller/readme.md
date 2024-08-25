@@ -1,1 +1,0 @@
-# In this folder keep an x86 docker installer .exe file

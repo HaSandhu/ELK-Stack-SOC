@@ -1,10 +1,11 @@
-# Ignore node_modules and logs
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# Ignore Docker files
+# Ignore log files
 *.log
-*.pid
-*.exe
 log.txt
+
+# Ignore installer executables and archives
+*.exe
+*.zip
+
+# Ignore any other transient files
+*.tmp
+*.bak

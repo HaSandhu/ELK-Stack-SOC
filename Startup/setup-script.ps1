@@ -1,35 +1,46 @@
-# Path to the Docker Desktop installer
+# Log file path
 $logFile = "C:\SandboxShared\Startup\log.txt"
-Add-Content -Path $logFile -Value "Starting script"
+Add-Content -Path $logFile -Value "`n--- Starting ELK Stack Setup Script ---`n"
 
-$dockerInstallerPath = "C:\SandboxShared\Startup\DockerInstaller\Docker Desktop Installer.exe"
-
-# Check if Docker is already installed
-if (!(Get-Command docker -ErrorAction SilentlyContinue)) {
-    Add-Content -Path $logFile -Value "Docker is not installed. Installing Docker..."
-    Start-Process -FilePath $dockerInstallerPath -ArgumentList "/quiet" -Wait
-    Add-Content -Path $logFile -Value "Docker installation completed."
-} else {
-    Add-Content -Path $logFile -Value "Docker is already installed."
+# Helper function to log and display progress
+function Log-Step {
+    param (
+        [string]$message
+    )
+    Add-Content -Path $logFile -Value $message
+    Write-Host $message
 }
 
-# Start Docker Desktop
-Add-Content -Path $logFile -Value "Starting Docker Desktop..."
-Start-Process "Docker Desktop" -Wait
+# Step 1: Install Java Development Kit (JDK)
+Log-Step "`n[Step 1/5] Installing Java Development Kit (JDK)...`n"
+$jreInstallerPath = "C:\SandboxShared\Startup\ELK-Installers\jdk-22_windows-x64_bin.exe"
+Start-Process -FilePath $jreInstallerPath -ArgumentList "/s" -Wait
+Log-Step "`n[Step 1/5] JDK installation completed.`n"
 
-# Wait for Docker to start (you might need to adjust the sleep time)
-Start-Sleep -Seconds 15
+# Step 2: Extract and Install Elasticsearch
+Log-Step "`n[Step 2/5] Installing Elasticsearch...`n"
+$elasticsearchZipPath = "C:\SandboxShared\Startup\ELK-Installers\elasticsearch-8.15.0-windows-x86_64.zip"
+Expand-Archive -Path $elasticsearchZipPath -DestinationPath "C:\SandboxShared\elasticsearch" -Force
+Start-Process -FilePath "C:\SandboxShared\elasticsearch\elasticsearch-8.15.0\bin\elasticsearch.bat" -NoNewWindow
+Log-Step "`n[Step 2/5] Elasticsearch installation completed.`n"
 
-# Navigate to the project directory
-Add-Content -Path $logFile -Value "Navigating to project directory"
-Set-Location -Path "C:\SandboxShared"
+# Step 3: Extract and Install Logstash
+Log-Step "`n[Step 3/5] Installing Logstash...`n"
+$logstashZipPath = "C:\SandboxShared\Startup\ELK-Installers\logstash-8.15.0-windows-x86_64.zip"
+Expand-Archive -Path $logstashZipPath -DestinationPath "C:\SandboxShared\logstash" -Force
+Start-Process -FilePath "C:\SandboxShared\logstash\logstash-8.15.0\bin\logstash.bat" -NoNewWindow
+Log-Step "`n[Step 3/5] Logstash installation completed.`n"
 
-# Build the Docker image
-Add-Content -Path $logFile -Value "Building Docker image..."
-docker build -t elk-stack-soc .
+# Step 4: Extract and Install Kibana
+Log-Step "`n[Step 4/5] Installing Kibana...`n"
+$kibanaZipPath = "C:\SandboxShared\Startup\ELK-Installers\kibana-8.15.0-windows-x86_64.zip"
+Expand-Archive -Path $kibanaZipPath -DestinationPath "C:\SandboxShared\kibana" -Force
+Start-Process -FilePath "C:\SandboxShared\kibana\kibana-8.15.0-windows-x86_64\bin\kibana.bat" -NoNewWindow
+Log-Step "`n[Step 4/5] Kibana installation completed.`n"
 
-# Run the Docker container
-Add-Content -Path $logFile -Value "Running Docker container..."
-docker run -d -p 5601:5601 -p 9200:9200 -p 5044:5044 elk-stack-soc
+# Step 5: Finalizing
+Log-Step "`n[Step 5/5] ELK Stack setup is complete. All components should be running now.`n"
+Log-Step "`n--- ELK Stack Setup Script Completed ---`n"
 
-Add-Content -Path $logFile -Value "Docker container is running."
+# Keep the window open for user review
+Start-Sleep -Seconds 30
