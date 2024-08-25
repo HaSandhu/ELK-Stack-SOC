@@ -1,0 +1,14 @@
+<Configuration>
+  <VGpu>Disable</VGpu>
+  <Networking>Enable</Networking>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>D:\Personal Projects\ELK Stack SOC</HostFolder>
+      <SandboxFolder>C:\SandboxShared</SandboxFolder>
+      <ReadOnly>false</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>explorer.exe C:\SandboxShared</Command>
+  </LogonCommand>
+</Configuration>
