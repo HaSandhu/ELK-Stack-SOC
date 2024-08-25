@@ -9,6 +9,6 @@
     </MappedFolder>
   </MappedFolders>
   <LogonCommand>
-    <Command>explorer.exe C:\SandboxShared</Command>
+    <Command>powershell.exe -ExecutionPolicy Bypass -File "C:\SandboxShared\Startup\setup-script.ps1"</Command>
   </LogonCommand>
 </Configuration>

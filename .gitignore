@@ -6,3 +6,5 @@ yarn-error.log
 # Ignore Docker files
 *.log
 *.pid
+*.exe
+log.txt
