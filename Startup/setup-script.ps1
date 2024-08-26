@@ -12,34 +12,27 @@ function Log-Step {
 }
 
 # Step 1: Install Java Development Kit (JDK)
-Log-Step "`n[Step 1/5] Installing Java Development Kit (JDK)...`n"
-$jreInstallerPath = "C:\SandboxShared\Startup\ELK-Installers\jdk-22_windows-x64_bin.exe"
+Log-Step "`n[Step 1/4] Installing Java Development Kit (JDK)...`n"
+$jreInstallerPath = "C:\SandboxShared\Startup\jdk-22_windows-x64_bin.exe"
 Start-Process -FilePath $jreInstallerPath -ArgumentList "/s" -Wait
-Log-Step "`n[Step 1/5] JDK installation completed.`n"
+Log-Step "`n[Step 1/4] JDK installation completed.`n"
 
-# Step 2: Extract and Install Elasticsearch
-Log-Step "`n[Step 2/5] Installing Elasticsearch...`n"
-$elasticsearchZipPath = "C:\SandboxShared\Startup\ELK-Installers\elasticsearch-8.15.0-windows-x86_64.zip"
-Expand-Archive -Path $elasticsearchZipPath -DestinationPath "C:\SandboxShared\elasticsearch" -Force
-Start-Process -FilePath "C:\SandboxShared\elasticsearch\elasticsearch-8.15.0\bin\elasticsearch.bat" -NoNewWindow
-Log-Step "`n[Step 2/5] Elasticsearch installation completed.`n"
+# Step 2: Start Elasticsearch
+Log-Step "`n[Step 2/4] Starting Elasticsearch...`n"
+Start-Process -FilePath "C:\SandboxShared\Startup\elasticsearch-8.15.0-windows-x86_64\bin\elasticsearch.bat" -NoNewWindow
+Log-Step "`n[Step 2/4] Elasticsearch is running.`n"
 
-# Step 3: Extract and Install Logstash
-Log-Step "`n[Step 3/5] Installing Logstash...`n"
-$logstashZipPath = "C:\SandboxShared\Startup\ELK-Installers\logstash-8.15.0-windows-x86_64.zip"
-Expand-Archive -Path $logstashZipPath -DestinationPath "C:\SandboxShared\logstash" -Force
-Start-Process -FilePath "C:\SandboxShared\logstash\logstash-8.15.0\bin\logstash.bat" -NoNewWindow
-Log-Step "`n[Step 3/5] Logstash installation completed.`n"
+# Step 3: Start Logstash
+Log-Step "`n[Step 3/4] Starting Logstash...`n"
+Start-Process -FilePath "C:\SandboxShared\Startup\logstash-8.15.0\bin\logstash.bat" -NoNewWindow
+Log-Step "`n[Step 3/4] Logstash is running.`n"
 
-# Step 4: Extract and Install Kibana
-Log-Step "`n[Step 4/5] Installing Kibana...`n"
-$kibanaZipPath = "C:\SandboxShared\Startup\ELK-Installers\kibana-8.15.0-windows-x86_64.zip"
-Expand-Archive -Path $kibanaZipPath -DestinationPath "C:\SandboxShared\kibana" -Force
-Start-Process -FilePath "C:\SandboxShared\kibana\kibana-8.15.0-windows-x86_64\bin\kibana.bat" -NoNewWindow
-Log-Step "`n[Step 4/5] Kibana installation completed.`n"
+# Step 4: Start Kibana
+Log-Step "`n[Step 4/4] Starting Kibana...`n"
+Start-Process -FilePath "C:\SandboxShared\Startup\kibana-8.15.0\bin\kibana.bat" -NoNewWindow
+Log-Step "`n[Step 4/4] Kibana is running.`n"
 
-# Step 5: Finalizing
-Log-Step "`n[Step 5/5] ELK Stack setup is complete. All components should be running now.`n"
+# Finalization
 Log-Step "`n--- ELK Stack Setup Script Completed ---`n"
 
 # Keep the window open for user review

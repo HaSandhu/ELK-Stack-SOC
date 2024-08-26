@@ -9,3 +9,8 @@ log.txt
 # Ignore any other transient files
 *.tmp
 *.bak
+
+#Ignore ELK folders
+elasticsearch-8.15.0-windows-x86_64
+kibana-8.15.0
+logstash-8.15.0
